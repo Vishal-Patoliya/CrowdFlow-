@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-crowd-green: #10b981; /* emerald-500 */
+  --color-crowd-yellow: #f59e0b; /* amber-500 */
+  --color-crowd-red: #ef4444; /* red-500 */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #020617; /* slate-950 */
+  color: #f8fafc; /* slate-50 */
+}
+
+/* 3D Isometric Map Utilities */
+.isometric-container {
+  transform: rotateX(60deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+}
+
+.isometric-layer {
+  transform: translateZ(0);
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.isometric-layer:hover {
+  transform: translateZ(20px);
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
