@@ -27,6 +27,7 @@ export function useEventData() {
   const [zones, setZones] = useState(initialZones);
   const [queues, setQueues] = useState(initialQueues);
   const [parking, setParking] = useState(initialParking);
+  const [headCount, setHeadCount] = useState(45230); // Starting head count
 
   useEffect(() => {
     // Simulate real-time data updates every 5 seconds
@@ -60,10 +61,17 @@ export function useEventData() {
           return { ...lot, current: newCurrent };
         })
       );
+
+      // Fluctuate head count by -50 to +80
+      setHeadCount((prev) => {
+        const change = Math.floor(Math.random() * 131) - 50;
+        return prev + change;
+      });
+
     }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
-  return { zones, queues, parking };
+  return { zones, queues, parking, headCount };
 }

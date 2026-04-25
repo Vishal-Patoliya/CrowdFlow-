@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map, Clock, Zap, Bell, Car, Shield } from 'lucide-react';
 
-export default function Layout({ children, activeTab, setActiveTab }) {
+export default function Layout({ children, activeTab, setActiveTab, headCount }) {
   const navItems = [
     { id: 'map', icon: Map, label: 'Map' },
     { id: 'queues', icon: Clock, label: 'Wait Times' },
@@ -20,7 +20,13 @@ export default function Layout({ children, activeTab, setActiveTab }) {
           </div>
           <div>
             <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">CrowdFlow</h1>
-            <p className="text-xs text-slate-400 font-medium">Move smarter. Wait less.</p>
+            <div className="flex items-center gap-1.5 mt-1 bg-slate-950 px-2 py-1 rounded-md border border-slate-800 w-max">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+              </span>
+              <span className="text-[10px] font-bold text-slate-300 tracking-wider">{headCount?.toLocaleString()} IN VENUE</span>
+            </div>
           </div>
         </div>
         
@@ -46,7 +52,10 @@ export default function Layout({ children, activeTab, setActiveTab }) {
         </nav>
         
         <div className="p-6 border-t border-slate-800">
-          <button className="w-full flex items-center justify-center gap-2 bg-slate-800 text-slate-300 py-2.5 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">
+          <button 
+            onClick={() => setActiveTab('alerts')}
+            className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium transition-colors border ${activeTab === 'alerts' ? 'bg-blue-900/40 text-blue-400 border-blue-900/50 shadow-[0_0_15px_rgba(59,130,246,0.2)]' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700'}`}
+          >
             <Bell size={18} />
             Alerts
           </button>
@@ -61,9 +70,21 @@ export default function Layout({ children, activeTab, setActiveTab }) {
             <div className="bg-blue-600 text-white p-1.5 rounded-lg shadow-sm shadow-blue-900/50">
               <Map size={20} />
             </div>
-            <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">CrowdFlow</h1>
+            <div className="flex flex-col">
+              <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 leading-tight">CrowdFlow</h1>
+              <div className="flex items-center gap-1 mt-0.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                </span>
+                <span className="text-[9px] font-bold text-slate-400 tracking-wider">{headCount?.toLocaleString()}</span>
+              </div>
+            </div>
           </div>
-          <button className="relative text-slate-400 p-2 hover:bg-slate-800 rounded-full transition-colors">
+          <button 
+            onClick={() => setActiveTab('alerts')}
+            className={`relative p-2 rounded-full transition-colors ${activeTab === 'alerts' ? 'bg-blue-900/50 text-blue-400' : 'text-slate-400 hover:bg-slate-800'}`}
+          >
             <Bell size={20} />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-slate-900 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
           </button>
